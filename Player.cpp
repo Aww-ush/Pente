@@ -91,7 +91,6 @@ bool Player::SetBoard(Board *board)
     try
     {
         _board = board;
-        totalMoves++;
         return true;
     }
     catch (const std::exception &e)
@@ -153,4 +152,10 @@ bool Player::SetFirstMoveMaker()
 bool Player::isFirstMoveMaker()
 {
     return isFirstMover;
+}
+int Player::GetTotalMoves(){
+    return totalMoves;
+}
+char Player::GetColour(){
+    return _colour;
 }

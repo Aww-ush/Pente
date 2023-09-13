@@ -16,7 +16,7 @@ public:
     //print the current status of the board
     bool PrintBoard();
     bool isWithInBoard(int position);
-    bool IsPosiitonEmpty(int row, int cloumn);
+    bool IsPositionEmpty(int row, int cloumn);
     // cmake threads to check for the multiple row instead of creating 2 for loop?-- later feature if time
     bool InsertFirstPiece(char colour);
     bool IsSecondPieceValid(int row, int column);
@@ -25,7 +25,7 @@ public:
     bool removePiece(int row, int column);
     std::pair<int, int> GetCenterOfBoard();
     bool ResetBoard();
-
+    char ReturnPiece(int row, int column);
 private:
     // making it compile time
     static constexpr int BOARD_SIZE = 19;

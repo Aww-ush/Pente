@@ -2,11 +2,12 @@
 #include "Game.h"
 
 using namespace std;
-Game::Game(Player *human, Player *computer, Board *board)
+Game::Game(Player *human, Player *computer, Board *board, Round* round)
 {
     this->human = human;
     this->computer = computer;
     this->board = board;
+    this->round = round;
 }
 bool Game::PlayRound()
 {
@@ -27,6 +28,9 @@ bool Game::PlayRound()
 
             }
 
+            totalHumanRoundPoints += round->CalculatePoint(numericalPosition.first, numericalPosition.second, human->GetColour());
+            totalHumanPoints += totalHumanRoundPoints;
+            SetNextMover(COMPUTER_CHARACTER);
         }
         else
         {
@@ -35,40 +39,49 @@ bool Game::PlayRound()
             while (!computer->MakeMove(numericalPosition.first, numericalPosition.second))
             {
                 cout << "Failed to move computer" << endl;
-                // regenerate the row and column
             }
         }
         while (playRound)
         {
-            while (nextMover == HUMAN_CHARACTER)
+            if (nextMover == HUMAN_CHARACTER)
             {
                 // MOVE human
                 string position = AskForPosition();
                 pair<int, int> numericalPosition = ConvertMoveToRowCol(position);
                 SetNextMover(COMPUTER_CHARACTER);
+                
                 while (!human->MakeMove(numericalPosition.first, numericalPosition.second))
                 {
                     cout << "Failed to make first move, you can only enter in center" << endl;
                     position = AskForPosition();
-                    // find the name
                 }
+                totalHumanRoundPoints += round->CalculatePoint(numericalPosition.first, numericalPosition.second, human->GetColour());
+                totalHumanPoints += totalHumanRoundPoints;
+                cout << "total Human Points in this round = " << totalHumanRoundPoints;
             }
-            while(nextMover == COMPUTER_CHARACTER)
+            if(nextMover == COMPUTER_CHARACTER)
             {
                 // MOVE human
+                cout << "Comupters turn" << endl;
                 int row = rand() % 19;
                 int column = rand() % 19;
 
                 SetNextMover(HUMAN_CHARACTER);
                 while (!computer->MakeMove(row, column))
                 {
-                    cout << "Failed to make first move, you can only enter in center" << endl;
+                    cout << "Internal Server Error: Computer failed to make a move" << endl;
                 }
+                totalComputerRoundPoints += round->CalculatePoint(row, column, human->GetColour());
+                totalComputerPoints += totalHumanRoundPoints;
+                cout << "total Human Points in this round = " << totalHumanRoundPoints;
             }
+
             //GameOver
             if (!Continue()){
                 return false;
             }
+            cout << "The board becomes" << endl;
+            board->PrintBoard();
         }
         return true;
     }
@@ -86,10 +99,12 @@ bool Game::AnnounceRoundWinner()
     {
         string name = "Dummy Name";
         cout << WinnerRoundMessage(name) << endl;
+        return true;
     }
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
+        return false;
     }
 }
 
@@ -138,17 +153,24 @@ void Game::SetNextMover(char player)
 }
 pair<int, int> Game::ConvertMoveToRowCol(string position)
 {
-    try
-    {
         // suppose the input is A10
         char alphaRow = position.at(0);
         string alphaCol = position.substr(1);
         int row = alphaRow - 'A';
         int col = stoi(alphaCol) - 1;
         return pair<int, int>{row, col};
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+    
 }
+string Game::AskForPosition()
+{
+    string position;
+    cout << "Where do you want to move you Piece ?" << endl;
+    cin >> position;
+    string capitalPosition = "";
+    for (char &c : position)
+    {
+        capitalPosition += toupper(c);
+    }
+    return capitalPosition;
+}
+

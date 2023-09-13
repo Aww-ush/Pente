@@ -4,6 +4,7 @@
 #include "Computer.h"
 #include "Board.h"
 #include "Player.h"
+#include "Round.h"
 class Game
 {
 private:
@@ -17,17 +18,21 @@ private:
     Player *human;
     Player *computer;
     Board *board;
+    Round *round;
+    int totalHumanPoints = 0;
+    int totalComputerPoints = 0;
+    int totalHumanRoundPoints = 0;
+    int totalComputerRoundPoints = 0;
 
 public:
-    Game(Player *human, Player *computer, Board *board);
+    Game(Player *human, Player *computer, Board *board, Round *round);
     bool PlayRound();
     bool AnnounceRoundWinner();
     bool AnnounceTournamentWinner();
     bool ResetRound();
     bool CheckForPoints();
     bool Continue();
-    std::pair<int, int> ConvertMoveToRowCol(std::string position);
-
     std::string AskForPosition();
+    std::pair<int, int> ConvertMoveToRowCol(std::string position);
 };
 #endif // GAME_H

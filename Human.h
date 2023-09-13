@@ -11,7 +11,6 @@ public:
     Human(Board *board, std::string name, char color);
     bool MakeMove(int row, int column) override;
     bool AskForHelp();
-    std::string AskForPosition();
 };
 
 #endif // HUMAN_H

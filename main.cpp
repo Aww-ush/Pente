@@ -16,22 +16,22 @@ int main()
     string name = "Default Name";
     // cout << "Enter your name" << endl;
     // cin >> name;
-    
-    
-    
+
     cout << "The first player is decided by coin toss. Guess the side of coin H OR T!" << endl;
     char userChoice;
     cin >> userChoice;
-    Coin *coin = new Coin;
+    Coin *coin = new Coin();
     char humanColour, computerColour;
     if (coin->Toss())
     {
-        if(coin->WinOrLose(userChoice)){
+        if (coin->WinOrLose(userChoice))
+        {
             cout << "You have won the toss please go first" << endl;
             humanColour = WHITE_PIECE;
             computerColour = BLACK_PIECE;
         }
-        else{
+        else
+        {
             cout << "Coumputer has won the toss you will go second" << endl;
             humanColour = BLACK_PIECE;
             computerColour = WHITE_PIECE;
@@ -39,8 +39,10 @@ int main()
     }
     Player *humanPlayer = new Human(boardPtr, name, 'W');
     Player *computerPlayer = new Computer(boardPtr, 'B');
-    Game* game = new Game(humanPlayer, computerPlayer, boardPtr);
-    if(!game->PlayRound()){
+    Round *round = new Round(boardPtr);
+    Game *game = new Game(humanPlayer, computerPlayer, boardPtr, round);
+    if (!game->PlayRound())
+    {
         cout << "Do you want to save the game?" << endl;
     }
     return 0;

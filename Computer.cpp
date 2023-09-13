@@ -6,15 +6,15 @@ Computer::Computer(Board *board, char colour)
 {
     if (!SetBoard(board))
     {
-        cout << "There was error setting the board for human" << endl;
+        cout << "There was error setting the board for computer" << endl;
     }
     if (!SetName("Computer"))
     {
-        cout << "There was error setting the name for human" << endl;
+        cout << "There was error setting the name for computer" << endl;
     }
     if (!SetColour(colour))
     {
-        cout << "There was error setting the color for human" << endl;
+        cout << "There was error setting the color for computer" << endl;
     }
 }
 bool Computer::MakeMove(int row, int column)
@@ -37,6 +37,8 @@ bool Computer::MakeMove(int row, int column)
             cout << "Could not move the piece to position " << row << " " << column << endl;
             return false;
         }
+        char rowPositiom = 'A' + row;
+        cout << "The computer placed a piece in " << rowPositiom << column << endl;
         return true;
     }
     catch (const std::exception &e)

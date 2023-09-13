@@ -4,15 +4,18 @@
 #include <cstdlib>
 
 using namespace std;
-
-char Coin::GetResult(){
+Coin::Coin(){
+    
+}
+char Coin::GetResult()
+{
     return _result;
 }
 
 bool Coin::Toss(){
     try
     {
-        srand(time(0));
+        srand(time(NULL));
         int randomNumber = rand() % 2;
         _result = (randomNumber == 0) ? HEAD : TAIL;
         return true;

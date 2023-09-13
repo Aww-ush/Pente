@@ -13,7 +13,7 @@ private:
     Board *_board;
     bool isFirstMover = false;
     bool isTurnToMove = false;
-
+    
 public:
     //count the total points position are A10 where A is row abd 10 is column
     bool Move(int row, int column, char colour);

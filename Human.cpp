@@ -24,15 +24,14 @@ bool Human::MakeMove(int row, int column)
         Board *board = GetBoard();
         char colour = GetColour();
         if(colour == 'W'){
-            if(SetFirstMoveMaker()){
+            if(!SetFirstMoveMaker()){
                 cout << "Internal Server error in human::MakeMove" << endl;
                 return false;
             }
         }
-        string position = AskForPosition();
         if (!Move(row, column, colour))
         {
-            cout << "Could not move the piece to position " << position << endl;
+            cout << "Could not move the piece to position " << row << " " << column << endl;
             return false;
             }
         return true;
@@ -43,15 +42,4 @@ bool Human::MakeMove(int row, int column)
         return false;
     }
 }
-string Human::AskForPosition()
-{
-    string position;
-    cout << "Where do you want to move you Piece ?" << endl;
-    cin >> position;
-    string capitalPosition = "";
-    for (char &c : position)
-    {
-        capitalPosition += toupper(c);
-    }
-    return position;
-}
+

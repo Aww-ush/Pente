@@ -27,7 +27,10 @@ bool Board::InsertPiece(int row, int column, char pieceType)
         }
 
         _board[row][column] = pieceType;
-        
+        if(!PrintBoard()){
+            cout << "There was error printing board" << endl;
+            return false;
+        }
         return true;
     }
     catch (const std::exception &e)
@@ -37,11 +40,7 @@ bool Board::InsertPiece(int row, int column, char pieceType)
         return false;
     }
 }
-// return the current board
-std::vector<std::vector<char>> Board::GetBoard()
-{
-    return _board;
-}
+
 // print the current status of the board
 bool Board::PrintBoard()
 {
@@ -83,7 +82,7 @@ bool Board::IsPieceValid(char input)
     }
     return true;
 }
-bool Board::IsPosiitonEmpty(int row, int cloumn)
+bool Board::IsPositionEmpty(int row, int cloumn)
 {
 
     return (_board[row][cloumn] != INITIAL_BOARD_PIECE) ? true : false;
@@ -99,7 +98,7 @@ bool Board::IsSecondPieceValid(int row, int column)
     // first check if ther is already the piece in the place they are tyna put
     try
     {
-        if (IsPosiitonEmpty(row, column))
+        if (IsPositionEmpty(row, column))
         {
             cout << "the position is not empty" << endl;
             return false;
@@ -134,7 +133,7 @@ bool Board::removePiece(int row, int column)
 {
     try
     {
-        if (IsPosiitonEmpty(row, column))
+        if (IsPositionEmpty(row, column))
         {
             cout << "The position is empty so no pieve to remove" << endl;
             return false;
@@ -151,16 +150,9 @@ bool Board::removePiece(int row, int column)
 }
 pair<int, int> Board::GetCenterOfBoard()
 {
-    try
-    {
         int middle = (BOARD_SIZE + 1) / 2;
         return pair<int, int>(middle, middle);
-    }
-    catch (const std::exception &e)
-    {
-        cout << "there was erro while getting center of the board";
-        std::cerr << e.what() << '\n';
-    }
+    
 }
 bool Board::ResetBoard(){
     try
@@ -180,4 +172,7 @@ bool Board::ResetBoard(){
         cout << "There was error while resetting the board" << endl;
         return false;
     }
+}
+char Board::ReturnPiece(int row,int column){
+    return _board[row][column];
 }
