@@ -25,7 +25,7 @@ bool Computer::MakeMove(int row, int column)
         char colour = GetColour();
         if (colour == 'W')
         {
-            if (SetFirstMoveMaker())
+            if (!SetFirstMoveMaker())
             {
                 cout << "Internal Server error in Computer::SetFirstMoveMaker" << endl;
                 return false;

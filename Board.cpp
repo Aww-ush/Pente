@@ -25,8 +25,11 @@ bool Board::InsertPiece(int row, int column, char pieceType)
             cout << "the piece is not of valid colour" << endl;
             return false;
         }
-
-        _board[row][column] = pieceType;
+        if (!IsPositionEmpty(row, column)){
+            cout << "the position is not empty" << endl;
+            return false;
+        }
+            _board[row][column] = pieceType;
         if(!PrintBoard()){
             cout << "There was error printing board" << endl;
             return false;

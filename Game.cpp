@@ -52,7 +52,6 @@ bool Game::PlayRound()
                 
                 while (!human->MakeMove(numericalPosition.first, numericalPosition.second))
                 {
-                    cout << "Failed to make first move, you can only enter in center" << endl;
                     position = AskForPosition();
                 }
                 totalHumanRoundPoints += round->CalculatePoint(numericalPosition.first, numericalPosition.second, human->GetColour());
@@ -71,9 +70,9 @@ bool Game::PlayRound()
                 {
                     cout << "Internal Server Error: Computer failed to make a move" << endl;
                 }
-                totalComputerRoundPoints += round->CalculatePoint(row, column, human->GetColour());
+                totalComputerRoundPoints += round->CalculatePoint(row, column, computer->GetColour());
                 totalComputerPoints += totalHumanRoundPoints;
-                cout << "total Human Points in this round = " << totalHumanRoundPoints;
+                cout << "total Computer Points in this round = " << totalHumanRoundPoints;
             }
 
             //GameOver

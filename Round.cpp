@@ -61,7 +61,7 @@ int Round::TotalRightDiagonalPieces(int row, int column, char colour)
 {
     try
     {
-        int totalCount = 1;
+        int totalCount = 0;
         totalCount += CheckMoreDownLeft(++row, --column, totalCount, colour);
         totalCount += CheckMoreUpRight(--row, ++column, totalCount, colour);
         return totalCount;
@@ -76,7 +76,7 @@ int Round::TotalLeftDiagonalPieces(int row, int column, char colour)
 {
     try
     {
-        int totalCount = 1;
+        int totalCount = 0;
         totalCount += CheckMoreUpLeft(--row, --column, totalCount, colour);
         totalCount += CheckMoreDownRight(++row, ++column, totalCount, colour);
         return totalCount;
@@ -91,7 +91,7 @@ int Round::TotalHorizontalPieces(int row, int column, char colour)
 {
     try
     {
-        int totalCount = 1;
+        int totalCount = 0;
         totalCount += CheckMoreLeft(row, --column, totalCount, colour);
         totalCount += CheckMoreRight(row, ++column, totalCount, colour);
         return totalCount;
@@ -106,7 +106,7 @@ int Round::TotalVerticalPieces(int row, int column, char colour)
 {
     try
     {
-        int totalCount = 1;
+        int totalCount = 0;
         totalCount += CheckMoreUp(--row, column, totalCount, colour);
         totalCount += CheckMoreDown(++row, column, totalCount, colour);
         return totalCount;
